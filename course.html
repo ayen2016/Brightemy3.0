@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- title and favicon -->
+
+    <title>Brightemy | Best Course for career development.</title> 
+    <link rel="icon" type="favicon" href="img/Brightemy-favicon.png">
+    <meta name="description" content="Brightemy offers the best courses for career development. Join us to enhance your skills and achieve your career goals.">
+    <meta name="keywords" content="Brightemy, courses, career development, skills enhancement, online learning, professional growth">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Brightemy Team">
+    <link rel="canonical" href="https://www.brightemy.com/">
+    <meta name="robots" content="index, follow">
+    <meta charset="UTF-8">
+
+
+<!-- title and favicon -->
+    
+
+    <link rel="stylesheet" href="course.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+</head>
+<body>
+    
+
+<!-- Topbar start -->
+
+
+<!-- 
+<div class="topbar">
+
+    <div class="topbar_text">
+
+        <div> <div class="topbar_course"> <p> Course</p> </div>  </div>
+
+        <div> <div class="topbar_blog"> <p> Blog</p> </div>  </div>
+
+        <div> <div class="topbar_Meet_the_team" > <p>  <a href="meet_the_team.html"> Meet The Team </a> </p> </div>  </div>
+        
+
+    </div>
+</div> -->
+
+<!-- Topbar stop -->
+
+
+<!-- Navbar start -->
+
+
+<!-- Navbar start -->
+<nav class="navbar">
+    <div class="logo">  
+      <a href="index.html"> <img src="img/Brightemy Logo.png" alt="Brightemy Logo" />  </a>   
+    </div>
+    
+    <!-- Search Container -->
+    <div class="search-container" id="search-container">
+        <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        <button class="search-button" id="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+        <div class="search-results" id="search-results"></div>
+    </div>
+    
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">Course</a></li>
+      <li><a href="partners.html">Partners</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+</nav>
+<!-- Navbar script finish -->
+
+<script>
+  // Hamburger menu functionality
+ const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  searchResults.style.display = 'none'; // Close search when hamburger is clicked
+});
+
+// Search functionality
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchButton = document.getElementById('search-button');
+
+// Navigation data
+const navData = [
+  { "title": "Home", "link": "index.html" },
+  { "title": "Course", "link": "course.html" },
+  { "title": "Partners", "link": "partners.html" },
+  { "title": "About", "link": "about.html" },
+  { "title": "Blog", "link": "blog.html" },
+  { "title": "Contact", "link": "contact.html" }
+];
+
+// Function to perform search and return results
+function getSearchResults(query) {
+  if (query === '') {
+    return [];
+  }
+  
+  return navData.filter(item => 
+    item.title.toLowerCase().includes(query)
+  );
+}
+
+// Function to display search results
+function displaySearchResults(results) {
+  if (results.length > 0) {
+    searchResults.innerHTML = results
+      .map(item => `<div class="search-result-item" data-link="${item.link}">${item.title}</div>`)
+      .join('');
+    searchResults.style.display = 'block';
+    
+    // Add click event to search result items
+    document.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', function() {
+        window.location.href = this.getAttribute('data-link');
+      });
+    });
+  } else {
+    searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+    searchResults.style.display = 'block';
+  }
+}
+
+// Function to handle search input (display results only)
+function handleSearchInput() {
+  const query = searchInput.value.toLowerCase().trim();
+  
+  if (query === '') {
+    searchResults.style.display = 'none';
+    return;
+  }
+  
+  const results = getSearchResults(query);
+  displaySearchResults(results);
+}
+
+// Function to handle search button click (navigate to first result)
+function handleSearchButtonClick() {
+  const query = searchInput.value.toLowerCase().trim();
+  
+  if (query === '') {
+    return;
+  }
+  
+  const results = getSearchResults(query);
+  
+  if (results.length > 0) {
+    // Navigate to the first search result
+    window.location.href = results[0].link;
+  } else {
+    // Display no results message
+    displaySearchResults(results);
+  }
+}
+
+// Event listeners
+searchInput.addEventListener('input', handleSearchInput);
+searchButton.addEventListener('click', handleSearchButtonClick);
+
+// Close search results when clicking outside
+document.addEventListener('click', function(event) {
+  const searchContainer = document.getElementById('search-container');
+  const isClickInsideSearch = searchContainer.contains(event.target);
+  
+  if (!isClickInsideSearch) {
+    searchResults.style.display = 'none';
+  }
+});
+
+// Close search results when window is resized
+window.addEventListener('resize', function() {
+  searchResults.style.display = 'none';
+});
+</script>
+
+
+<!-- search functionality script finish -->
+<!-- Navbar script finish -->
+
+
+<!-- course page hero section  start-->
+
+
+<div class="course_page_hero_section">
+
+<div class="course_page_title">
+
+    <p>Brightemy Courses</p>
+
+</div>
+
+</div>
+
+<!-- course page hero section  stop-->
+
+
+<!-- course marqee offers start -->
+
+
+<div class="course-offers-marquee">
+  <div class="marquee-content">
+    🔥 Summer Sale: Get 20% off on all courses! &nbsp;&nbsp; | &nbsp;&nbsp;
+    🎓 New Course Launch: Advanced Hacking With Bidyut! &nbsp;&nbsp; | &nbsp;&nbsp;
+    🚀 Enroll now for Brightemy Global discounts! &nbsp;&nbsp; | &nbsp;&nbsp;
+    📚 Free webinars every weekend! &nbsp;&nbsp; | &nbsp;&nbsp;
+  </div>
+</div>
+
+
+<!-- course marquee offer stop -->
+
+<!-- our popular course start -->
+
+
+
+<section class="course-collection" aria-label="Course Collection">
+
+  <section id="course_card"></section>
+
+  <div class="course-header">
+    <h2>Our Popular Courses</h2>
+    <p>Explore our in-demand courses designed to boost your skills.</p>
+  </div>
+
+  <ul class="course-list">
+    <!-- SEO Course -->
+    <li class="course-card">
+      <div class="course-card-inner">
+        <div class="course-image-container">
+          <img src="img/SEO.png" alt="SEO Course Image" />
+        </div>
+        <div class="course-content">
+          <div class="partner-info">
+            <img src="img/Hamim.jpg" alt="SEO Partner Logo" class="partner-logo" />
+            <span>SEO Experts</span>
+          </div>
+          <a href="#" class="course-title-link">
+            <h3 class="course-title">SEO Mastery</h3>
+          </a>
+          <p class="course-type">Professional Certificate</p>
+          <button class="register-btn" type="button"><a href="seo.html">Learn More</a></button>
+        </div>
+      </div>
+    </li>
+
+
+    
+
+    
+    <!-- Development Course -->
+    <li class="course-card">
+      <div class="course-card-inner">
+        <div class="course-image-container">
+          <img src="img/webdevelopment.jpg" alt="Development Course Image" />
+        </div>
+        <div class="course-content">
+          <div class="partner-info">
+            <img src="img/Bidyut 2.jpg" alt="Development Partner Logo" class="partner-logo" />
+            <span>Dev Academy</span>
+          </div>
+          <a href="#" class="course-title-link">
+            <h3 class="course-title">Web Development </h3>
+          </a>
+          <p class="course-type">Professional Certificate</p>
+          <button class="register-btn" type="button"><a href="webdevelopment.html"> Learn More</a></button>
+        </div>
+      </div>
+    </li>
+
+    <!-- Marketing Course -->
+    <li class="course-card">
+      <div class="course-card-inner">
+        <div class="course-image-container">
+          <img src="img/digital marketing.webp" alt="Marketing Course Image" />
+        </div>
+        <div class="course-content">
+          <div class="partner-info">
+            <img src="img/Abu Taher 2.jpg" alt="Marketing Partner Logo" class="partner-logo" />
+            <span>Marketing Pros</span>
+          </div>
+          <a href="#" class="course-title-link">
+            <h3 class="course-title">Digital Marketing </h3>
+          </a>
+          <p class="course-type">Professional Certificate</p>
+          <button class="register-btn" type="button"><a href="marketing.html"> Learn More</a></button>
+        </div>
+      </div>
+    </li>
+
+    <!-- Graphic Design Course -->
+    <li class="course-card">
+      <div class="course-card-inner">
+        <div class="course-image-container">
+          <img src="img/graphic desing.webp" alt="Graphic Design Course Image" />
+        </div>
+        <div class="course-content">
+          <div class="partner-info">
+            <img src="img/Hamim.jpg" alt="Graphic Design Partner Logo" class="partner-logo" />
+            <span>Design Studio</span>
+          </div>
+          <a href="#" class="course-title-link">
+            <h3 class="course-title">Graphic Design </h3>
+          </a>
+          <p class="course-type">Professional Certificate</p>
+          <button class="register-btn" type="button"><a href="graphic.html"> Learn More</a></button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+
+
+
+<!-- our popular course stop-->
+
+
+
+
+
+<!-- image gallery start -->
+
+
+<section class="gallery-section">
+  <div class="container">
+    <h2 class="gallery-title">Student Learning</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="img/imggallery1.avif" alt="Work 1">
+      </div>
+      <div class="gallery-item">
+        <img src="img/imggallery2.avif" alt="Work 2">
+      </div>
+      <div class="gallery-item">
+        <img src="img/imggallery3.avif" alt="Work 3">
+      </div>
+      <div class="gallery-item">
+        <img src="img/imggallery4.avif" alt="Work 4">
+      </div>
+      <div class="gallery-item">
+        <img src="img/imggallery5.avif" alt="Work 5">
+      </div>
+      <div class="gallery-item">
+        <img src="img/imggallery2.avif" alt="Work 6">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- image gallery stop -->
+
+
+
+
+<!-- Scroll to top button start-->
+
+<button id="scrollTopBtn" title="Go to top">↑</button>
+
+<!-- Scroll to top button stop -->
+
+<!-- Javascript for Scroll to top button  -->
+
+<script>
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+  window.onscroll = function () {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+
+  scrollTopBtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+<!-- Javascript for scroll to top button  -->
+
+
+<!-- footer section start -->
+
+
+<div class="footer_container">
+
+
+
+  <div class="footer_left_container">
+    
+
+    <div> <img src="img/Brightemy Logo.png" alt="Brightemy Logo" class="footer_logo"> </div>
+
+
+    <div>   <p> Brightemy a place of secure and Bright Future. Operating since 2025 in Bangladesh and globally.  </p>  </div>
+
+
+    <div class="social_icons">                        
+      
+    <div class="facebook_icon"> <i class="fab fa-facebook"></i> </div>
+    <div class="linkedin_icon"> <i class="fa-brands fa-square-linkedin"></i> </div>
+    <div class="instagram_icon"> <i class="fab fa-instagram"></i> </div>
+    
+    
+    </div>
+
+
+  </div>
+
+
+  <div class="footer_middle_container">
+
+
+
+    <div> <h2> USEFUL LINKS </h2> </div>
+
+    <div class="footer_middle_text"> <p> <a href="index.html"> Home </a> </p></div>
+    <div class="footer_middle_text"> <p> <a href="about.html">  About </a>  </p></div>
+    <div class="footer_middle_text"> <p> <a href="contact.html">  Contact </a>  </p></div>
+    <div class="footer_middle_text"> <p>  <a href="blog.html"> Blog </a>   </p></div>
+    <div class="footer_middle_text"> <p> <a href="course.html"> Course </a>  </p></div>
+
+    
+  </div>
+
+
+
+  <div class="footer_right_container">
+    
+
+    <div> <h2> LEGAL</h2> </div>
+
+    <div class="footer_right_text"> <p>  <a href="contact.html">  Privacy Policy </a>   </p> </div>
+    <div class="footer_right_text"> <p> <a href="contact.html">  Terms & Services </a> </p> </div>
+
+
+  </div>
+
+
+</div>
+
+<div class="copyright_section"> © 2025 Brightemy. All rights reserved. </div>
+
+<!-- footer section stop -->
+
+
+
+
+
+</body>
+</html>
+
+
